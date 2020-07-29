@@ -43,7 +43,7 @@ function get_user(array $config, \stdClass $user) {
         'name' => $fullname,
         'account' => [
             'homePage' => $config['app_url'],
-            'name' => strval($user->id),
+            'name' => $user->username,
         ],
     ];
 }

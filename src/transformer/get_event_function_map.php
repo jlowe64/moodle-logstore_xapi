@@ -26,6 +26,7 @@ function get_event_function_map() {
         '\core\event\user_loggedin' => 'core\user_loggedin',
         '\core\event\user_loggedout' => 'core\user_loggedout',
         '\core\event\course_module_completion_updated' => 'core\course_module_completion_updated',
+        '\core\event\course_module_created' => 'core\course_module_created',
         '\mod_assign\event\assessable_submitted' => 'mod_assign\assignment_submitted',
         '\mod_assign\event\submission_graded' => 'mod_assign\assignment_graded',
 
