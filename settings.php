@@ -43,10 +43,6 @@ if ($hassiteconfig) {
         get_string('resendfailedbatches', 'logstore_xapi'),
         get_string('resendfailedbatches_desc', 'logstore_xapi'), 0));
 
-    $settings->add(new admin_setting_configcheckbox('logstore_xapi/mbox',
-        get_string('mbox', 'logstore_xapi'),
-        get_string('mbox_desc', 'logstore_xapi'), 0));
-
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/shortcourseid',
         get_string('shortcourseid', 'logstore_xapi'),
         get_string('shortcourseid_desc', 'logstore_xapi'), 0));
@@ -55,10 +51,6 @@ if ($hassiteconfig) {
         get_string('sendidnumber', 'logstore_xapi'),
         get_string('sendidnumber_desc', 'logstore_xapi'), 0));
 
-    $settings->add(new admin_setting_configcheckbox('logstore_xapi/send_username',
-        get_string('send_username', 'logstore_xapi'),
-        get_string('send_username_desc', 'logstore_xapi'), 0));
-
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/send_jisc_data',
         get_string('send_jisc_data', 'logstore_xapi'),
         get_string('send_jisc_data_desc', 'logstore_xapi'), 0));
@@ -66,6 +58,29 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/sendresponsechoices',
        get_string('send_response_choices', 'logstore_xapi'),
        get_string('send_response_choices_desc', 'logstore_xapi'), 0));
+
+    // Actor configuration
+    $settings->add(new admin_setting_heading('actor',
+       get_string('actor', 'logstore_xapi'),
+       get_string('actor_help', 'logstore_xapi')));
+
+    $settings->add(new admin_setting_configcheckbox('logstore_xapi/mbox',
+        get_string('mbox', 'logstore_xapi'),
+        get_string('mbox_desc', 'logstore_xapi'), 0));
+
+    $settings->add(new admin_setting_configcheckbox('logstore_xapi/send_oauth2_issuer_url',
+        get_string('oauth2', 'logstore_xapi'),
+        get_string('oauth2_desc', 'logstore_xapi'), 0));
+
+    $options = ['id'];
+    $user_field_mapping = new \core\oauth2\user_field_mapping();
+    foreach ($user_field_mapping->get_internalfield_list() as $field) {
+        $options[$field] = $field;
+    }
+
+    $settings->add(new admin_setting_configselect('logstore_xapi/actor_identification_type',
+        get_string('actor_identification_type', 'logstore_xapi'), 
+        get_string('actor_identification_type_desc', 'logstore_xapi'), 0, $options));
 
     // Filters.
     $settings->add(new admin_setting_heading('filters',

@@ -33,7 +33,7 @@ class test extends \tests\xapi_test_case {
             'send_response_choices' => true,
             'send_short_course_id' => false,
             'send_course_and_module_idnumber' => false,
-            'send_username' => false,
+            'actor_identification_type' => 'id',
             'plugin_url' => 'https://github.com/xAPI-vle/moodle-logstore_xapi',
             'plugin_version' => '0.0.0-development',
             'repo' => new \src\transformer\repos\TestRepository($testdata),

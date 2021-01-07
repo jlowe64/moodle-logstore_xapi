@@ -14,11 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace tests\core\user_created\existing_user_created_oauth2_disabled;
 defined('MOODLE_INTERNAL') || die();
 
-$plugin = isset($plugin) && is_object($plugin) ? $plugin : new \stdClass();
-$plugin->component = 'logstore_xapi';
-$plugin->version = 2021010602;
-$plugin->release = '';
-$plugin->requires = 2018051700;
-$plugin->maturity = MATURITY_STABLE;
+class test extends \tests\xapi_test_case {
+    protected function get_test_dir() {
+        return __DIR__;
+    }
+}

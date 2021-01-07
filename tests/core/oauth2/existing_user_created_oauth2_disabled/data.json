@@ -1,0 +1,29 @@
+{
+    "user": [
+        {
+            "id": 1,
+            "auth": "oauth2",
+            "firstname": "test_fullname",
+            "email": "test@test.com"
+        }
+    ],
+    "course": [
+        {
+            "id": 1,
+            "fullname": "test_name",
+            "lang": "en"
+        }
+    ],
+    "auth_oauth2_linked_login": [
+        {
+            "userid": 1,
+            "issuerid": 2
+        }
+    ],
+    "oauth2_issuer": [
+        {
+            "id": 2,
+            "baseurl": "http:\/\/www.example2.org"
+        }
+    ]
+}

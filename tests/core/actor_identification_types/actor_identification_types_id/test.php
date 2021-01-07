@@ -14,11 +14,19 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace tests\core\actor_identification_types\actor_identification_types_id;
 defined('MOODLE_INTERNAL') || die();
 
-$plugin = isset($plugin) && is_object($plugin) ? $plugin : new \stdClass();
-$plugin->component = 'logstore_xapi';
-$plugin->version = 2021010602;
-$plugin->release = '';
-$plugin->requires = 2018051700;
-$plugin->maturity = MATURITY_STABLE;
+class test extends \tests\xapi_test_case {
+    protected function get_test_dir() {
+        return __DIR__;
+    }
+
+    protected function get_transformer_config() {
+        $testdata = $this->get_test_data();
+        $transformerconfig = parent::get_transformer_config();
+        return array_merge($transformerconfig, [
+            'actor_identification_type' => 'id',
+        ]);
+    }
+}
