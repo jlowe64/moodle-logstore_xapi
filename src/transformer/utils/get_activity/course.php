@@ -42,5 +42,11 @@ function course(array $config, \stdClass $course) {
         $object['definition']['extensions']['https://w3id.org/learning-analytics/learning-management-system/external-id'] = $courseidnumber;
     }
 
+    if (utils\is_enabled_config($config, 'send_course_category')) {
+        $repo = $config['repo'];
+        $category = $repo->read_record_by_id('course_categories', $course->category);
+        $object['definition']['extensions']['https://w3id.org/learning-analytics/learning-management-system/course-category'] = $category->name;
+    }
+
     return $object;
 }
