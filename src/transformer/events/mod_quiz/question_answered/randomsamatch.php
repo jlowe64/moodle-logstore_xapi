@@ -60,7 +60,7 @@ function randomsamatch(array $config, \stdClass $event, \stdClass $questionattem
         ],
         'timestamp' => utils\get_event_timestamp($event),
         'result' => [
-            'response' => $questionattempt->responsesummary,
+            'response' => ($questionattempt->responsesummary ?:''),
             'completion' => $questionattempt->responsesummary !== '',
             'success' => $questionattempt->rightanswer === $questionattempt->responsesummary,
             'extensions' => [

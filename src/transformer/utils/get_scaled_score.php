@@ -19,8 +19,12 @@ defined('MOODLE_INTERNAL') || die();
 
 function get_scaled_score($rawscore, $minscore, $maxscore) {
     if ($rawscore >= 0) {
-        return $rawscore / $maxscore;
+        $toReturn = $rawscore / $maxscore;
     } else {
-        return $rawscore / $minscore;
+        $toReturn = $rawscore / $minscore;
     }
+	if($toReturn < -1) $toReturn = -1;
+	if($toReturn > 1) $toReturn = 1;
+	
+	return $toReturn;
 }

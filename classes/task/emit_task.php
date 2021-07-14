@@ -60,7 +60,7 @@ class emit_task extends \core\task\scheduled_task {
     private function extract_events($limitnum) {
         global $DB;
         $conditions = null;
-        $sort = '';
+        $sort = 'id DESC';
         $fields = '*';
         $limitfrom = 0;
         $extractedevents = $DB->get_records('logstore_xapi_log', $conditions, $sort, $fields, $limitfrom, $limitnum);

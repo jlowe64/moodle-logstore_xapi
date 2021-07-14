@@ -51,7 +51,7 @@ function essay(array $config, \stdClass $event, \stdClass $questionattempt, \std
         ],
         'timestamp' => utils\get_event_timestamp($event),
         'result' => [
-            'response' => $responsesummary,
+            'response' => ($responsesummary ?:''),
             'completion' => $responsesummary !== '',
         ],
         'context' => [

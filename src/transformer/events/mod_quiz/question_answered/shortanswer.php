@@ -49,7 +49,7 @@ function shortanswer(array $config, \stdClass $event, \stdClass $questionattempt
         ],
         'timestamp' => utils\get_event_timestamp($event),
         'result' => [
-            'response' => $questionattempt->responsesummary,
+            'response' => ($questionattempt->responsesummary ?:''),
             'completion' => $questionattempt->responsesummary !== '',
         ],
         'context' => [

@@ -27,30 +27,34 @@ function load(array $config, array $events) {
 
         $url = utils\correct_endpoint($endpoint).'/statements';
         $auth = base64_encode($username.':'.$password);
-        $postdata = json_encode($statements);
+        
+		
+		if(count($statements) > 0) {
+			$postdata = json_encode($statements);
 
-        if ($postdata === false) {
-            throw new \Exception('JSON encode error: '.json_last_error_msg());
-        }
+			if ($postdata === false) {
+				throw new \Exception('JSON encode error: '.json_last_error_msg());
+			}
 
-        $request = curl_init();
-        curl_setopt($request, CURLOPT_URL, $url);
-        curl_setopt($request, CURLOPT_POSTFIELDS, $postdata);
-        curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($request, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($request, CURLOPT_HTTPHEADER, [
-            'Authorization: Basic '.$auth,
-            'X-Experience-API-Version: 1.0.0',
-            'Content-Type: application/json',
-        ]);
+			$request = curl_init();
+			curl_setopt($request, CURLOPT_URL, $url);
+			curl_setopt($request, CURLOPT_POSTFIELDS, $postdata);
+			curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($request, CURLOPT_SSL_VERIFYPEER, false);
+			curl_setopt($request, CURLOPT_HTTPHEADER, [
+				'Authorization: Basic '.$auth,
+				'X-Experience-API-Version: 1.0.0',
+				'Content-Type: application/json',
+			]);
 
-        $responsetext = curl_exec($request);
-        $responsecode = curl_getinfo($request, CURLINFO_RESPONSE_CODE);
-        curl_close($request);
+			$responsetext = curl_exec($request);
+			$responsecode = curl_getinfo($request, CURLINFO_RESPONSE_CODE);
+			curl_close($request);
 
-        if ($responsecode !== 200) {
-            throw new \Exception($responsetext, $responsecode);
-        }
+			if ($responsecode !== 200) {
+				throw new \Exception($responsetext, $responsecode);
+			}
+		}
     };
     return utils\load_in_batches($config, $events, $sendhttpstatements);
 }

@@ -38,7 +38,7 @@ function course_module_viewed(array $config, \stdClass $event) {
             $config,
             $course,
             $event->contextinstanceid,
-            'http://id.tincanapi.com/activitytype/lms/module'
+            'http://adlnet.gov/expapi/activities/module'
         ),
         'timestamp' => utils\get_event_timestamp($event),
         'context' => [

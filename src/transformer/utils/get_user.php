@@ -23,27 +23,49 @@ function get_user(array $config, \stdClass $user) {
     $hasvalidemail = mb_ereg_match("[A-Z0-9\\.\\`\\'_%+-]+@[A-Z0-9.-]+\\.[A-Z]{1,63}$", $user->email, "i");
 
     if (array_key_exists('send_mbox', $config) && $config['send_mbox'] == true && $hasvalidemail) {
-        return [
-            'name' => $fullname,
-            'mbox' => 'mailto:' . $user->email,
-        ];
+
+		$toReturn = array();
+		
+		if(array_key_exists('hashmbox', $config) && $config['hashmbox'] == true) {
+			$toReturn['mbox_sha1sum'] = sha1('mailto:' . $user->email);
+		} else {
+			$toReturn['mbox'] = 'mailto:' . $user->email;
+		}
+		
+		if(array_key_exists('send_name', $config) && $config['send_name'] == true) {
+			$toReturn['name'] = $fullname;
+		}
+		
+        return $toReturn;
+
     }
 
     if (array_key_exists('send_username', $config) && $config['send_username'] === true) {
-        return [
-            'name' => $fullname,
+        $toReturn =  [
             'account' => [
                 'homePage' => $config['app_url'],
                 'name' => $user->username,
             ],
         ];
+		
+		if(array_key_exists('send_name', $config) && $config['send_name'] == true) {
+			$toReturn['name'] = $fullname;
+		}
+		
+        return $toReturn;		
+		
     }
 
-    return [
-        'name' => $fullname,
+    $toReturn =  [
         'account' => [
             'homePage' => $config['app_url'],
             'name' => strval($user->id),
         ],
     ];
+	
+	if(array_key_exists('send_name', $config) && $config['send_name'] == true) {
+		$toReturn['name'] = $fullname;
+	}
+	
+	return $toReturn;		
 }

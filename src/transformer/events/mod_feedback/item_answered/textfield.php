@@ -47,7 +47,7 @@ function textfield(array $config, \stdClass $event, \stdClass $feedbackvalue, \s
         ],
         'timestamp' => utils\get_event_timestamp($event),
         'result' => [
-            'response' => $feedbackvalue->value,
+            'response' => ($feedbackvalue->value ?:''),
             'completion' => $feedbackvalue->value !== '',
         ],
         'context' => [

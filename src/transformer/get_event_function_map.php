@@ -19,6 +19,8 @@ defined('MOODLE_INTERNAL') || die();
 
 function get_event_function_map() {
     $availableevents = [
+        '\auth_oidc\event\authed' => 'auth_oidc\user_authed',
+        '\auth_oidc\event\user_loggedin' => 'auth_oidc\user_loggedin',
         '\core\event\course_completed' => 'core\course_completed',
         '\core\event\course_viewed' => 'core\course_viewed',
         '\core\event\user_created' => 'core\user_created',
@@ -52,6 +54,11 @@ function get_event_function_map() {
         '\mod_book\event\chapter_viewed' => 'mod_book\chapter_viewed',
         '\mod_chat\event\course_module_viewed' => 'mod_chat\course_module_viewed',
         '\mod_choice\event\course_module_viewed' => 'all\course_module_viewed',
+        '\mod_choicegroup\event\choice_removed' => 'mod_choicegroup\choice_removed',
+        '\mod_choicegroup\event\choice_updated' => 'mod_choicegroup\choice_updated',
+        '\mod_choicegroup\event\course_module_instance_list_viewed' => 'mod_choicegroup\course_module_instance_list_viewed',
+        '\mod_choicegroup\event\course_module_viewed' => 'mod_choicegroup\course_module_viewed',
+        '\mod_choicegroup\event\report_viewed' => 'mod_choicegroup\report_viewed',
         '\mod_data\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_facetoface\event\cancel_booking' => 'mod_facetoface\cancel_booking',
         '\mod_facetoface\event\course_module_viewed' => 'mod_facetoface\course_module_viewed',
@@ -66,9 +73,24 @@ function get_event_function_map() {
         '\mod_forum\event\post_created' => 'mod_forum\post_created',
         '\mod_forum\event\user_report_viewed' => 'mod_forum\user_report_viewed',
         '\mod_glossary\event\course_module_viewed' => 'all\course_module_viewed',
+        '\mod_hvp\event\attempt_submitted' => 'mod_hvp\attempt_submitted',
+        '\mod_hvp\event\course_module_instance_list_viewed' => 'mod_hvp\course_module_instance_list_viewed',
+        '\mod_hvp\event\course_module_viewed' => 'mod_hvp\course_module_viewed',
         '\mod_imscp\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_lesson\event\course_module_viewed' => 'mod_lesson\course_module_viewed',
         '\mod_lti\event\course_module_viewed' => 'all\course_module_viewed',
+        '\mod_oublog\event\comment_approved' => 'mod_oublog\comment_approved',
+        '\mod_oublog\event\comment_created' => 'mod_oublog\comment_created',
+        '\mod_oublog\event\comment_deleted' => 'mod_oublog\comment_deleted',
+        '\mod_oublog\event\course_module_instance_list_viewed' => 'mod_oublog\course_module_instance_list_viewed',
+        '\mod_oublog\event\course_module_viewed' => 'mod_oublog\course_module_viewed',
+        '\mod_oublog\event\participation_viewed' => 'mod_oublog\participation_viewed',
+        '\mod_oublog\event\post_created' => 'mod_oublog\post_created',
+        '\mod_oublog\event\post_deleted' => 'mod_oublog\post_deleted',
+        '\mod_oublog\event\post_imported' => 'mod_oublog\post_imported',
+        '\mod_oublog\event\post_updated' => 'mod_oublog\post_updated',
+        '\mod_oublog\event\post_viewed' => 'mod_oublog\post_viewed',
+        '\mod_oublog\event\site_entries_viewed' => 'mod_oublog\site_entries_viewed',
         '\mod_page\event\course_module_viewed' => 'mod_page\course_module_viewed',
         '\mod_quiz\event\course_module_viewed' => 'mod_quiz\course_module_viewed',
         '\mod_quiz\event\attempt_abandoned' => 'mod_quiz\attempt_submitted\handler',
@@ -81,14 +103,86 @@ function get_event_function_map() {
         '\mod_scorm\event\sco_launched' => 'mod_scorm\sco_launched',
         '\mod_scorm\event\scoreraw_submitted' => 'mod_scorm\scoreraw_submitted',
         '\mod_scorm\event\status_submitted' => 'mod_scorm\status_submitted',
+        '\mod_spa\event\category_created' => 'mod_spa\category_created',
+        '\mod_spa\event\category_deleted' => 'mod_spa\category_deleted',
+        '\mod_spa\event\category_viewed' => 'mod_spa\category_viewed',
+        '\mod_spa\event\category_updated' => 'mod_spa\category_updated',
+        '\mod_spa\event\course_module_instance_list_viewed' => 'mod_spa\course_module_instance_list_viewed',
+        '\mod_spa\event\course_module_viewed' => 'mod_spa\course_module_viewed',
+        '\mod_spa\event\edit_page_viewed' => 'mod_spa\edit_page_viewed',
+        '\mod_spa\event\emails_sent' => 'mod_spa\emails_sent',
+        '\mod_spa\event\email_template_updated' => 'mod_spa\email_template_updated',
+        '\mod_spa\event\formative_feedback_viewed' => 'mod_spa\formative_feedback_viewed',
+        '\mod_spa\event\group_override_created' => 'mod_spa\group_override_created',
+        '\mod_spa\event\group_override_updated' => 'mod_spa\group_override_updated',
+        '\mod_spa\event\group_override_deleted' => 'mod_spa\group_override_deleted',
+        '\mod_spa\event\question_created' => 'mod_spa\question_created',
+        '\mod_spa\event\question_previewed' => 'mod_spa\question_previewed',
+        '\mod_spa\event\question_updated' => 'mod_spa\question_updated',
+        '\mod_spa\event\question_viewed' => 'mod_spa\question_viewed',
+        '\mod_spa\event\report_viewed' => 'mod_spa\report_viewed',
+        '\mod_spa\event\submission_created' => 'mod_spa\submission_created',
+        '\mod_spa\event\submission_deleted' => 'mod_spa\submission_deleted',
+        '\mod_spa\event\submission_reviewed' => 'mod_spa\submission_reviewed',
+        '\mod_spa\event\submission_state_updated' => 'mod_spa\submission_state_updated',
+        '\mod_spa\event\submission_viewed' => 'mod_spa\submission_viewed',
+        '\mod_spa\event\teacher_feedback_created' => 'mod_spa\teacher_feedback_created',
+        '\mod_spa\event\teacher_feedback_updated' => 'mod_spa\teacher_feedback_updated',
+        '\mod_spa\event\teacher_feedback_viewed' => 'mod_spa\teacher_feedback_viewed',
+        '\mod_spa\event\template_created' => 'mod_spa\template_created',
+        '\mod_spa\event\template_deleted' => 'mod_spa\template_deleted',
+        '\mod_spa\event\template_previewed' => 'mod_spa\template_previewed',
+        '\mod_spa\event\template_updated' => 'mod_spa\template_updated',
+        '\mod_spa\event\template_viewed' => 'mod_spa\template_viewed',
+        '\mod_spa\event\template_questions_added' => 'mod_spa\template_questions_added',
+        '\mod_spa\event\template_questions_moved' => 'mod_spa\template_questions_moved',
+        '\mod_spa\event\template_questions_removed' => 'mod_spa\template_questions_removed',
+        '\mod_spa\event\template_questions_viewed' => 'mod_spa\template_questions_viewed',
+        '\mod_spa\event\user_graded' => 'mod_spa\user_graded',
+        '\mod_spa\event\user_override_created' => 'mod_spa\user_override_created',
+        '\mod_spa\event\user_override_deleted' => 'mod_spa\user_override_deleted',
+        '\mod_spa\event\user_override_updated' => 'mod_spa\user_override_updated',
+        '\mod_spa\event\user_rated' => 'mod_spa\user_rated',
         '\mod_survey\event\course_module_viewed' => 'mod_survey\course_module_viewed',
+        '\mod_surveypro\event\all_items_viewed' => 'mod_surveypro\all_items_viewed',
+        '\mod_surveypro\event\all_submissions_viewed' => 'mod_surveypro\all_submissions_viewed',
+        '\mod_surveypro\event\all_usertemplates_viewed' => 'mod_surveypro\all_usertemplates_viewed',
+        '\mod_surveypro\event\course_module_instance_list_viewed' => 'mod_surveypro\course_module_instance_list_viewed',
+        '\mod_surveypro\event\course_module_viewed' => 'mod_surveypro\course_module_viewed',
+        '\mod_surveypro\event\form_previewed' => 'mod_surveypro\form_previewed',
+        '\mod_surveypro\event\item_created' => 'mod_surveypro\item_created',
+        '\mod_surveypro\event\item_deleted' => 'mod_surveypro\item_deleted',
+        '\mod_surveypro\event\item_modified' => 'mod_surveypro\item_modified',
+        '\mod_surveypro\event\mastertemplate_applied' => 'mod_surveypro\mastertemplate_applied',
+        '\mod_surveypro\event\submission_created' => 'mod_surveypro\submission_created',
+        '\mod_surveypro\event\submission_deleted' => 'mod_surveypro\submission_deleted',
+        '\mod_surveypro\event\submission_duplicated' => 'mod_surveypro\submission_duplicated',
+        '\mod_surveypro\event\submission_modified' => 'mod_surveypro\submission_modified',
+        '\mod_surveypro\event\submission_viewed' => 'mod_surveypro\submission_viewed',
+        '\mod_surveypro\event\submissioninpdf_downloaded' => 'mod_surveypro\submissioninpdf_downloaded',
+        '\mod_surveypro\event\usertemplate_exported' => 'mod_surveypro\usertemplate_exported',
+        '\mod_surveypro\event\usertemplate_saved' => 'mod_surveypro\usertemplate_saved',
         '\mod_url\event\course_module_viewed' => 'mod_url\course_module_viewed',
         '\mod_wiki\event\course_module_viewed' => 'all\course_module_viewed',
         '\mod_workshop\event\course_module_viewed' => 'all\course_module_viewed',
+        '\mod_zoom\event\course_module_instance_list_viewed' => 'mod_zoom\course_module_instance_list_viewed',
+        '\mod_zoom\event\course_module_viewed' => 'mod_zoom\course_module_viewed',
+        '\mod_zoom\event\join_meeting_button_clicked' => 'mod_zoom\join_meeting_button_clicked',
         '\totara_program\event\program_assigned' => 'totara_program\program_assigned'
     ];
+    if(PHPUNIT_TEST) {
+        /**
+         * In unit test, if test_adminroot_cache_reset test is run before core_event_deprecated_testcase
+         * The report_eventlist_list_generator will load course_module_instances_list_viewed abstract class
+         * which will cause the core_event_deprecated_testcase to fail
+         * (debugging already called and the debug mode is off - list_generator.php)
+         **/
+        $environmentevents = $availableevents;
 
-    $environmentevents = class_exists("report_eventlist_list_generator") ? array_keys(\report_eventlist_list_generator::get_all_events_list(false)) : array_keys($availableevents);
+    } else {
+        $environmentevents = class_exists("report_eventlist_list_generator") ?
+            array_keys(\report_eventlist_list_generator::get_all_events_list(false)) : array_keys($availableevents);
+    }
 
     return array_filter($availableevents, function($k) use ($environmentevents) {
         return in_array($k, $environmentevents);

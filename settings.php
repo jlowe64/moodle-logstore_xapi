@@ -22,13 +22,13 @@ if ($hassiteconfig) {
     // Endpoint.
     $settings->add(new admin_setting_configtext('logstore_xapi/endpoint',
         get_string('endpoint', 'logstore_xapi'), '',
-        'http://example.com/endpoint/location/', PARAM_URL));
+        '', PARAM_URL));
     // Username.
     $settings->add(new admin_setting_configtext('logstore_xapi/username',
-        get_string('username', 'logstore_xapi'), '', 'username', PARAM_TEXT));
+        get_string('username', 'logstore_xapi'), '', '', PARAM_TEXT));
     // Key or password.
     $settings->add(new admin_setting_configtext('logstore_xapi/password',
-        get_string('password', 'logstore_xapi'), '', 'password', PARAM_TEXT));
+        get_string('password', 'logstore_xapi'), '', '', PARAM_TEXT));
 
     // Switch background batch mode on.
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/backgroundmode',
@@ -46,6 +46,11 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/mbox',
         get_string('mbox', 'logstore_xapi'),
         get_string('mbox_desc', 'logstore_xapi'), 0));
+		
+	// optional hashing of email address
+    $settings->add(new admin_setting_configcheckbox('logstore_xapi/hashmbox',
+        get_string('hashmbox', 'logstore_xapi'),
+        get_string('hashmbox_desc', 'logstore_xapi'), 1));
 
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/shortcourseid',
         get_string('shortcourseid', 'logstore_xapi'),
@@ -58,6 +63,10 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/send_username',
         get_string('send_username', 'logstore_xapi'),
         get_string('send_username_desc', 'logstore_xapi'), 0));
+		
+	$settings->add(new admin_setting_configcheckbox('logstore_xapi/send_name',
+        get_string('send_name', 'logstore_xapi'),
+        get_string('send_name_desc', 'logstore_xapi'), 1));
 
     $settings->add(new admin_setting_configcheckbox('logstore_xapi/send_jisc_data',
         get_string('send_jisc_data', 'logstore_xapi'),

@@ -24,7 +24,8 @@ function sco_launched(array $config, \stdClass $event) {
     $repo = $config['repo'];
     $user = $repo->read_record_by_id('user', $event->userid);
     $course = $repo->read_record_by_id('course', $event->courseid);
-    $scorm = $repo->read_record_by_id('scorm', $event->objectid);
+    $sco = $repo->read_record_by_id('scorm_scoes', $event->objectid);
+    $scorm = $repo->read_record_by_id('scorm', $sco->scorm);
     $lang = utils\get_course_lang($course);
 
     return [[

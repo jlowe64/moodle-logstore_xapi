@@ -68,6 +68,9 @@ class store extends php_obj implements log_writer {
      */
     protected function insert_event_entries(array $events) {
         global $DB;
+		
+		//don't log any events without a definitive user id (an actor) GVM 10-02-21
+		$events = array_filter($events,function($event) { return !empty($event['userid']); });
 
         // If in background mode, just save them in the database.
         if ($this->get_config('backgroundmode', false)) {
@@ -98,10 +101,12 @@ class store extends php_obj implements log_writer {
             'transformer' => [
                 'source_lang' => 'en',
                 'send_mbox' => $this->get_config('mbox', false),
+				'hashmbox' => $this->get_config('hashmbox', false),
                 'send_response_choices' => $this->get_config('sendresponsechoices', false),
                 'send_short_course_id' => $this->get_config('shortcourseid', false),
                 'send_course_and_module_idnumber' => $this->get_config('sendidnumber', false),
                 'send_username' => $this->get_config('send_username', false),
+				'send_name' => $this->get_config('send_name', false),
                 'send_jisc_data' => $this->get_config('send_jisc_data', false),
                 'session_id' => sesskey(),
                 'plugin_url' => 'https://github.com/xAPI-vle/moodle-logstore_xapi',

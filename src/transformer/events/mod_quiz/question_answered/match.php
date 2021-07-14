@@ -60,7 +60,7 @@ function match(array $config, \stdClass $event, \stdClass $questionattempt, \std
         ],
         'timestamp' => utils\get_event_timestamp($event),
         'result' => [
-            'response' => $questionattempt->responsesummary,
+            'response' => ($questionattempt->responsesummary ?:''),
             'completion' => $questionattempt->responsesummary !== null,
             'success' => $questionattempt->rightanswer === $questionattempt->responsesummary,
             'extensions' => [
